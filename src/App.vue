@@ -9,6 +9,9 @@
       :column-count="columnCount"
       :row-count="rowCount"
     />
+    <div class="button-container">
+      <button @click="randomizeMap()">Randomize</button>
+    </div>
   </main>
 </template>
 
@@ -16,6 +19,7 @@
 import { computed, ref } from "vue";
 
 import CellGrid from "@/components/CellGrid.vue";
+import getRandomizedMap from "@/helpers/getRandomizedMap";
 import type { CellMap } from "@/types";
 
 const aliveCellMap = ref<CellMap>({
@@ -27,6 +31,10 @@ const aliveCellMap = ref<CellMap>({
 });
 const rowCount = ref(10);
 const columnCount = computed(() => 3 * rowCount.value);
+
+const randomizeMap = () => {
+  aliveCellMap.value = getRandomizedMap(rowCount.value, columnCount.value);
+};
 </script>
 
 <style>
@@ -38,5 +46,18 @@ const columnCount = computed(() => 3 * rowCount.value);
 
 main {
   margin: 16px 0;
+}
+
+.button-container {
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  margin: auto;
+  padding: 8px 16px;
+  width: 90vw;
+}
+
+button {
+  margin-right: 8px;
+  padding: 8px 16px;
 }
 </style>
