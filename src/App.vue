@@ -12,6 +12,7 @@
     />
     <div class="button-container">
       <button @click="randomizeMap()">Randomize</button>
+      <button @click="updateAliveCellMap()">Next</button>
     </div>
   </main>
 </template>
@@ -20,6 +21,7 @@
 import { computed, ref } from "vue";
 
 import CellGrid from "@/components/CellGrid.vue";
+import getNextMap from "@/helpers/getNextMap";
 import getRandomizedMap from "@/helpers/getRandomizedMap";
 import type { CellMap } from "@/types";
 
@@ -40,6 +42,13 @@ const toggleCell = (id: string) => {
   const newAliveCellMap = { ...aliveCellMap.value };
   newAliveCellMap[id] = !newAliveCellMap[id];
   aliveCellMap.value = newAliveCellMap;
+};
+const updateAliveCellMap = () => {
+  aliveCellMap.value = getNextMap(
+    rowCount.value,
+    columnCount.value,
+    aliveCellMap.value
+  );
 };
 </script>
 

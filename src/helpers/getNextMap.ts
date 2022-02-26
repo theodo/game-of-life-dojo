@@ -6,16 +6,36 @@ const getNextMap = (
   columnCount: number,
   aliveCellMap: CellMap
 ): CellMap => {
-  return {};
+  const newAliveCellMap: CellMap = {};
+
+  for (let row = 0; row < rowCount; row++) {
+    for (let column = 0; column < columnCount; column++) {
+      const cellId = getCellId(row, column);
+      const isCellAlive = aliveCellMap[cellId];
+      const aliveNeighbourCount = getAliveNeighboursCount(
+        row,
+        column,
+        aliveCellMap
+      );
+      newAliveCellMap[cellId] = getCellNextState(
+        isCellAlive,
+        aliveNeighbourCount
+      );
+    }
+  }
+
+  return newAliveCellMap;
 };
 
 const getAliveNeighboursCount = (
   row: number,
   column: number,
   aliveCellsMap: CellMap
-): number => {
-  return 0;
-};
+): number =>
+  getNeighbours(row, column)
+    .map((index) => aliveCellsMap[index])
+    .filter((isAlive) => isAlive)
+    .reduce((count) => count + 1, 0);
 
 const getNeighbours = (row: number, column: number): string[] => [
   getCellId(row - 1, column - 1),
@@ -32,7 +52,13 @@ const getCellNextState = (
   isAlive: boolean,
   aliveNeighbourCount: number
 ): boolean => {
-  return false;
+  if (aliveNeighbourCount === 3) {
+    return true;
+  } else if (isAlive && aliveNeighbourCount === 2) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export default getNextMap;
