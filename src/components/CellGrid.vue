@@ -6,7 +6,12 @@
     grid-template-rows: repeat(${rowCount}, 1fr);
     `"
   >
-    <CellSquare v-for="i in cellCount" :key="i" :is-alive="isCellAlive(i)" />
+    <CellSquare
+      @click="handleCellClick(i)"
+      v-for="i in cellCount"
+      :key="i"
+      :is-alive="isCellAlive(i)"
+    />
   </div>
 </template>
 
@@ -20,12 +25,16 @@ import type { CellMap } from "@/types";
 const props = defineProps<{
   aliveCellMap: CellMap;
   columnCount: number;
+  onCellClick: (id: string) => void;
   rowCount: number;
 }>();
 const cellCount = computed(() => props.columnCount * props.rowCount);
 
 const isCellAlive = (index: number): boolean =>
   props.aliveCellMap[getCellIdFromIndex(index, props.columnCount)];
+const handleCellClick = (index: number) => {
+  props.onCellClick(getCellIdFromIndex(index, props.columnCount));
+};
 </script>
 
 <style scoped>

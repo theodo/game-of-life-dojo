@@ -7,6 +7,7 @@
     <CellGrid
       :alive-cell-map="aliveCellMap"
       :column-count="columnCount"
+      :on-cell-click="toggleCell"
       :row-count="rowCount"
     />
     <div class="button-container">
@@ -34,6 +35,11 @@ const columnCount = computed(() => 3 * rowCount.value);
 
 const randomizeMap = () => {
   aliveCellMap.value = getRandomizedMap(rowCount.value, columnCount.value);
+};
+const toggleCell = (id: string) => {
+  const newAliveCellMap = { ...aliveCellMap.value };
+  newAliveCellMap[id] = !newAliveCellMap[id];
+  aliveCellMap.value = newAliveCellMap;
 };
 </script>
 
