@@ -3,11 +3,11 @@
     <img alt="Theodo" class="logo" src="./assets/theodo.svg" />
     <img alt="Vue" class="logo" src="./assets/vue.svg" />
   </header>
-  <main><CellSquare is-alive /><CellSquare /></main>
+  <main><CellGrid column-count="30" row-count="10" /></main>
 </template>
 
 <script lang="ts" setup>
-import CellSquare from "@/components/CellSquare.vue";
+import CellGrid from "@/components/CellGrid.vue";
 </script>
 
 <style>

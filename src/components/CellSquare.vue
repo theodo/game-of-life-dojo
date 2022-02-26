@@ -8,9 +8,7 @@ defineProps<{ isAlive?: boolean }>();
 
 <style scoped>
 .cell {
-  border: 1px solid var(--color-border);
-  height: 16px;
-  width: 16px;
+  background-color: var(--color-background);
 }
 
 .alive {
