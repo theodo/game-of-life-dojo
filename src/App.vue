@@ -3,7 +3,7 @@
     <img alt="Theodo" class="logo" src="./assets/theodo.svg" />
     <img alt="Vue" class="logo" src="./assets/vue.svg" />
   </header>
-  <main><CellSquare /></main>
+  <main><CellSquare message="I’m controlled!" /></main>
 </template>
 
 <script lang="ts" setup>
