@@ -13,6 +13,7 @@
     <div class="button-container">
       <button @click="randomizeMap()">Randomize</button>
       <button @click="updateAliveCellMap()">Next</button>
+      <button @click="clearMap()">Clear</button>
     </div>
   </main>
 </template>
@@ -35,6 +36,9 @@ const aliveCellMap = ref<CellMap>({
 const rowCount = ref(10);
 const columnCount = computed(() => 3 * rowCount.value);
 
+const clearMap = () => {
+  aliveCellMap.value = {};
+};
 const randomizeMap = () => {
   aliveCellMap.value = getRandomizedMap(rowCount.value, columnCount.value);
 };
