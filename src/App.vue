@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 import CellGrid from "@/components/CellGrid.vue";
 import getNextMap from "@/helpers/getNextMap";
@@ -54,6 +54,14 @@ const updateAliveCellMap = () => {
     aliveCellMap.value
   );
 };
+
+let intervalId: number;
+onMounted(() => {
+  intervalId = setInterval(updateAliveCellMap, 1000);
+});
+onBeforeUnmount(() => {
+  clearInterval(intervalId);
+});
 </script>
 
 <style>
