@@ -6,7 +6,7 @@
     grid-template-rows: repeat(${rowCount}, 1fr);
     `"
   >
-    <CellSquare v-for="i in cellCount" :key="i" />
+    <CellSquare v-for="i in cellCount" :key="i" :is-alive="isCellAlive(i)" />
   </div>
 </template>
 
@@ -14,9 +14,18 @@
 import { computed } from "vue";
 
 import CellSquare from "@/components/CellSquare.vue";
+import getCellIdFromIndex from "@/helpers/getCellIdFromIndex";
+import type { CellMap } from "@/types";
 
-const props = defineProps<{ columnCount: number; rowCount: number }>();
+const props = defineProps<{
+  aliveCellMap: CellMap;
+  columnCount: number;
+  rowCount: number;
+}>();
 const cellCount = computed(() => props.columnCount * props.rowCount);
+
+const isCellAlive = (index: number): boolean =>
+  props.aliveCellMap[getCellIdFromIndex(index, props.columnCount)];
 </script>
 
 <style scoped>
